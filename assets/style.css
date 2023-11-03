@@ -1,0 +1,74 @@
+.track {
+    text-align: center;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    width: 80%;
+    max-width: 500px;
+}
+
+.track__title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.track__artist {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.track__length {
+    font-size: 16px;
+    color: #888;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+.title,
+.player-title {
+    text-align: center;
+    color: #333;
+    padding: 20px 0;
+}
+
+.cover {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.cover-image {
+    max-width: 150px;
+    max-height: 150px;
+}
+
+.track-info {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    width: 80%;
+    max-width: 500px;
+}
+
+.track,
+.author,
+.length {
+    margin-bottom: 10px;
+}
+
+.player {
+    display: block;
+    width: 80%;
+    margin: 20px auto;
+}

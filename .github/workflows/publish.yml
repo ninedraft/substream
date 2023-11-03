@@ -1,0 +1,15 @@
+on:
+  push:
+    tags:
+      - "v*" # Push events to matching v*, i.e. v1.0, v20.15.10
+
+name: publish package
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          tag=${${{ github.ref }}#"refs/tags/"}
+          curl https://proxy.golang.org/github.com/${{github.repository}}/@v/$tag.info
+    

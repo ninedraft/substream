@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Music Player</title>
+    <!-- Include htmx library -->
+    <script src="https://unpkg.com/htmx.org@1.9.6/dist/htmx.min.js"></script>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <h1 class="title">Current Track</h1>
+
+    <div id="track-cover" class="cover">
+        <!-- This div will be updated by htmx -->
+        <img src="/music.svg" alt="Loading..." class="cover-image">
+    </div>
+
+    <div id="track-data" hx-get="/music/track" hx-trigger="load, every 10s" class="track-info">
+        <!-- This div will be updated by htmx -->
+        <p class="track">Track: Loading...</p>
+        <p class="author">Author: Loading...</p>
+        <p class="length">Length: Loading...</p>
+    </div>
+
+    <h3 class="player-title">Music Player</h3>
+    <audio controls class="player">
+        <source src="/music" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+</body>
+
+</html>
