@@ -3,13 +3,13 @@ package streamer
 import (
 	"bytes"
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/ninedraft/substream/broadcast"
 )
 
 type Streamer struct {
-	buf         *bytes.Buffer
 	broadcaster *broadcast.Broadcaster[*bytes.Buffer]
 }
 
@@ -29,7 +29,7 @@ func (streamer *Streamer) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 		flush = controller.Flush
 	}
 
-	streamer.broadcaster.Listen(func(buf *bytes.Buffer) error {
+	err := streamer.broadcaster.Listen(func(buf *bytes.Buffer) error {
 		p := buf.Bytes()
 
 		if _, err := rw.Write(p); err != nil {
@@ -42,6 +42,10 @@ func (streamer *Streamer) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 
 		return nil
 	})
+
+	if err != nil {
+		log.Printf("streamer: %v", err)
+	}
 }
 
 func (s *Streamer) Write(p []byte) (n int, err error) {
