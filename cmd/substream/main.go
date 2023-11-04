@@ -15,6 +15,7 @@ import (
 
 	"github.com/ninedraft/substream/assets"
 	"github.com/ninedraft/substream/streamer"
+	"github.com/ninedraft/substream/views"
 )
 
 func main() {
@@ -93,8 +94,8 @@ func main() {
 		}
 	}()
 
-	currentTrack := atomic.Pointer[trackData]{}
-	currentTrack.Store(&trackData{
+	currentTrack := atomic.Pointer[views.TrackData]{}
+	currentTrack.Store(&views.TrackData{
 		Title:  "Music for Programming",
 		Artist: "MFP",
 		Length: time.Minute,
@@ -133,7 +134,7 @@ func main() {
 			}
 
 			w.Header().Set("Content-Type", "text/html")
-			errRender := view.Render(w)
+			errRender := views.Track.Render(w, view)
 			if errRender != nil {
 				log.Println("rendering track:", errRender)
 			}
