@@ -10,25 +10,79 @@
 </head>
 
 <body>
-    <h1 class="title">Current Track</h1>
+    <div class="container">
+        <h1 class="title">Current Track</h1>
 
-    <div id="track-cover" class="cover">
-        <!-- This div will be updated by htmx -->
-        <img src="/music.svg" alt="Loading..." class="cover-image">
+        <div id="track-cover" class="cover">
+            <!-- This div will be updated by htmx -->
+            <img src="/music.svg" alt="Loading..." class="cover-image">
+        </div>
+
+        <div id="track-data" hx-get="/music/track" hx-trigger="load, every 10s" class="track-info">
+            <!-- This div will be updated by htmx -->
+            <p class="track">Track: Loading...</p>
+            <p class="author">Author: Loading...</p>
+            <p class="length">Length: Loading...</p>
+        </div>
+
+        <h3 class="player-title">Music Player</h3>
+        <button id="playStopButton" class="control-button">Play</button>
+        <canvas id="canvas" class="visualizer" width="500" height="200"></canvas>
+        <audio id="audio" class="player" preload="metadata">
+            <source src="/music" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+
     </div>
 
-    <div id="track-data" hx-get="/music/track" hx-trigger="load, every 10s" class="track-info">
-        <!-- This div will be updated by htmx -->
-        <p class="track">Track: Loading...</p>
-        <p class="author">Author: Loading...</p>
-        <p class="length">Length: Loading...</p>
-    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var audio = document.getElementById('audio');
+            if (audio instanceof HTMLMediaElement) {
+                var audio = document.getElementById('audio');
+                var ctx = new (window.AudioContext || window.webkitAudioContext)();
+                var analyser = ctx.createAnalyser();
+                var audioSrc = ctx.createMediaElementSource(audio);
+                var canvas = document.getElementById('canvas');
+                var cctx = canvas.getContext('2d');
 
-    <h3 class="player-title">Music Player</h3>
-    <audio controls class="player">
-        <source src="/music" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+                audioSrc.connect(analyser);
+                audioSrc.connect(ctx.destination);
+            } else {
+                console.error('audio is not an instance of HTMLMediaElement');
+            }
+
+
+
+            const n = 3;
+
+
+            var freqData = new Uint8Array(analyser.frequencyBinCount);
+            function renderFrame() {
+                cctx.fillStyle = '#4CAF50';
+                analyser.getByteFrequencyData(freqData);
+                cctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (var i = 0; i < freqData.length / n; i += n) {
+                    var magnitude = freqData[n * i];
+                    cctx.fillRect(i, canvas.height, n, -magnitude);
+                }
+                requestAnimationFrame(renderFrame);
+            }
+
+
+            document.getElementById('playStopButton').addEventListener('click', function () {
+                var audio = document.querySelector('.player');
+                if (audio.paused) {
+                    this.textContent = 'Pause';
+                    audio.play();
+                    renderFrame();
+                } else {
+                    this.textContent = 'Play';
+                    audio.pause();
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -1,9 +1,11 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .track {
     text-align: center;
-    padding: 20px;
-    background-color: #f0f0f0;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     margin: 20px auto;
     width: 80%;
     max-width: 500px;
@@ -29,7 +31,6 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f0f0f0;
 }
 
 .title,
@@ -52,11 +53,6 @@ body {
 
 .track-info {
     text-align: center;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    margin: 20px auto;
     width: 80%;
     max-width: 500px;
 }
@@ -69,6 +65,46 @@ body {
 
 .player {
     display: block;
-    width: 80%;
+    width: 50%;
     margin: 20px auto;
+}
+
+.control-button {
+    background-color: #4CAF50;
+    /* Green background */
+    border: none;
+    /* Remove border */
+    color: white;
+    /* White text */
+    padding: 15px 32px;
+    /* Some padding */
+    text-align: center;
+    /* Centered text */
+    text-decoration: none;
+    /* Remove underline */
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    /* Mouse pointer on hover */
+    border-radius: 12px;
+    /* Rounded corners */
+    transition-duration: 0.4s;
+    /* Transition effect */
+}
+
+.control-button:hover {
+    background-color: white;
+    /* White background */
+    color: black;
+    /* Black text */
+}
+
+#canvas {
+    padding: 20px;
+    background-color: #fff;
+    margin: 20px auto;
+    width: 80%;
+    height: 40%;
+    max-width: 500px;
 }
